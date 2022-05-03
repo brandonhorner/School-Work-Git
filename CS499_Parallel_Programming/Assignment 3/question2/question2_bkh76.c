@@ -132,6 +132,7 @@ int main(int argc, char *argv){
         fprintf( stdout, "Team 1 won!\n" );
     else
         fprintf( stdout, "Team 2 won!\n" );
+    
     fprintf( stdout, "Total sequences generated team1: %d\n", total_count );
     fprintf( stdout, "Number of correct sequences team1: %d\n", correct_count );
     fprintf( stdout, "Total sequences generated team2: %d\n", total_count2 );
@@ -165,6 +166,7 @@ void *do_work( void *arg ){
         
         // lock critical section
         pthread_mutex_lock( mutex );
+        
         // first check if the loop should be false or not
         if( *correct_count == 10 ){
             flag = false;
@@ -295,7 +297,7 @@ bool buffer2_is_full(){
     if( working_index2 == NUM_THREADS ){
         return true;
     }
-//printf("buffer2_is_full() was false:\n  working_index2 = %d\n,   NUM_THREADS = %d\n", working_index2, NUM_THREADS);
+    //printf("buffer2_is_full() was false:\n  working_index2 = %d\n,   NUM_THREADS = %d\n", working_index2, NUM_THREADS);
     return false;
 }
 
