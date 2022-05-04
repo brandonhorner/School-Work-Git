@@ -1,0 +1,21 @@
+Full Tree - binary tree of height h, all levels have max # of nodes except leaves
+(has 2^#levels - 1)
+
+# levels  # of nodes
+	1		1
+	2		3
+	3		7
+	4		15
+
+Complete Tree -  all levels except 2nd to last contain max # of nodes
+fill left to right
+
+binary search tree find method for a full O(log n)
+binary search tree find method for a complete tree O(n)
+
+DELETE method
+(notebook)
+
+know trees
+binary trees
+binary search tree

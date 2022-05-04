@@ -1,0 +1,279 @@
+Stacks
+	push/pop
+	FILO - First in last out 
+(==)LIFO - Last in first out
+push(20),push(40), push(60), push(80)
+
+0 20
+1 40
+2 60
+3 80 
+4  0 <- top
+
+public class myStack{
+	private int top;
+	private long[] stackArray;
+	private int maxSize;
+
+	public myStack(int size){
+		maxSize = size;
+		stackArray = new long[maxSize];
+		top = -1;
+	}
+	
+	public void push(long value){
+		stackArray[++top] = value;
+	}
+	
+	public long pop(){
+		return stackArray[top--];
+	}
+	
+	public boolean isEmpty(){
+		return (top == -1)
+	}
+	
+	public boolean isFull(){
+		return (top == maxSize)
+	}
+	
+Queues
+	insert/enqueue
+	remove/dequeue
+	FIFO (a line)
+	front and rear
+i =	0 1 2 3 4
+	1 2 3 4 5
+	^front  ^rear
+	rear starts at -1
+	front < rear //no wrap around
+	print front to rear
+	
+i = 0 1 2 3 4 5
+    x     x x x
+	^rear ^front  //needs wrap
+	print front to length-1, and 0 to rear
+	
+Double Ended Queue
+	if queue is empty, start in the middle
+	addLeft - addFirst
+	addRight - addLast (basic insert of queue)
+	removeLeft - 
+	removeRight
+	two fronts
+	0 1 2 3  4 5  6 7 8 9
+		  y1 y x x1
+  frontLeft  ^ ^  frontRight
+  
+	if (list.length()/2 % 2 = 0)
+		y = list.length()/2 - 1
+		x = list.length()/2
+		frontLeft = y
+		frontRight = x
+		1,c
+		2,c
+		3,c
+		4,c
+		5,a
+		6,a
+		7,c
+		8,d
+		9,b
+		10,b
+		11,c
+		12,a
+		13,c
+		14,b
+		15,a
+		16,d
+		17,b
+		18,b
+		19,d
+		20,c
+		21,a
+		22,c  (stuff is partially sorted
+		23,b
+		24,d
+		25,advances current by 1 link
+		26,invariant something
+		27,2 or 3 to advance current
+		28, so you don't accidentally lose a node by removing a pointer/reference to it
+		29, get an error
+		30, file is created
+		
+	bubble/insertion/selection sort
+	insert method/count method use get/set methods
+	public void insert(Node n){
+		if (current==null){
+			current=n;
+			n.setNext(n); current->n
+		}else{
+			Node temp = current;
+			while(temp.getNext()!==current){temp temp.getNext();}
+			n.setNext(current);
+			temp.setNext(n);
+			current = n;
+		}
+	}
+	FR
+	1
+	F R
+	1 2
+	  FR
+	1  2 (deleting 1) queue is valid from front to rear
+	   F R	
+	1  2 4
+	
+	public void insertNode(Node n){
+		if(first==null){ //if empty
+			first = n;
+		}
+		else{
+			first.prev=n;
+			n.next=first;
+			first = n;
+		}
+	}     
+	      1st  2nd  3rd    1st			2nd
+	first  0	0	 0 	 3 <sorted[2]  3 < sorted[0]
+	upto  5-1	1	-1	 3 <10		   3 < 4
+	mid    2    0    X   upto=mid-1	   upto=-1
+					     upto = 2-1
+	
+Efficiency               
+	Stack 
+		push/insert(x) = 0(1)
+			*if you double arrays, the nth + 1 insertion has O(N) cost
+		pop/remove() = O(1)
+		
+	Queue 
+		insert/enqueue O(1)
+		delete/dequeue O(1)
+		wraparound if(rear == maxsize-1)
+		already wrapped (when rear < front)
+		
+		Find and delete min from queue 
+			- make front your min, not array[0], compare to all others through rear
+			min = queArray[F];
+			
+			delete min and shift from min to rear
+			update rear (rear--)
+			decrement # of elements
+		
+	Double ended queue -> DeQues class
+	
+	Priority Queues
+		similar to a basic queue except items are ordered by priority
+		smallest key has the highest priority
+		
+		insert(int a) - O(1) or O(N)
+		remove() - O(N) or O(1) < ^ depends on implementation
+						sort while taking input (insert O(1))
+						or search unordered queue (remove O(1))
+		
+		you should make a priority queue with objects and have 
+								key value pairs object(??? k, int v)
+	
+Part IA
+	- copy - copy value from array to another spot or temp variable or vise versa
+		copy counter int
+	- Comparisons - between any # and an element in the array
+		compare counter int
+Part 2A
+	Even/Odd Sort
+	0  1  2  3  4  5  6  7
+	81 77 99 44 55 22 88 79
+	
+	start with evens, 0, 2, 4, 6
+		
+		0  1  2  3  4  5  6  7
+		81 77 99 44 55 22 88 79
+		
+		j=0, compare j+1
+		
+		81 < 77? no, swap
+		0  1  2  3  4  5  6  7
+		77 81 99 44 55 22 88 79
+		
+		j+=2, j = 2
+		
+		99 < 44? no, swap
+		0  1  2  3  4  5  6  7
+		77 81 44 99 55 22 88 79
+		
+		j += 2, j = 4
+		
+		55 < 22? no, swap
+		0  1  2  3  4  5  6  7
+		77 81 44 99 22 55 88 79
+		
+		j+= 2, j = 6
+		
+		88 < 79? no, swap
+		0  1  2  3  4  5  6  7
+		77 81 44 99 22 55 78 88
+	
+	Odds
+		k = 1 compare k to k+1
+		
+		81 < 44? no, swap
+		0  1  2  3  4  5  6  7
+		77 44 81 99 22 55 78 88
+		
+		k += 2, k = 3
+		
+		99 < 22? no, swap
+		0  1  2  3  4  5  6  7
+		77 44 81 22 99 55 78 88
+		
+		k+= 2, k = 5
+		
+		55 < 78? yes, don't swap
+		0  1  2  3  4  5  6  7
+		77 44 81 22 99 55 78 88
+		
+		k+=2, k = 7
+		
+		k=max size, switch to evens again
+		
+	Evens
+		j = 0
+		77 < 44? no, swap
+		0  1  2  3  4  5  6  7
+		44 77 81 22 99 55 78 88
+		
+		j+= 2, j = 2
+		
+		81 < 22? no, swap
+		0  1  2  3  4  5  6  7
+		44 77 22 81 99 55 78 88
+		
+		j+= 2, j = 4
+		
+		99 < 55? no, swap
+		0  1  2  3  4  5  6  7
+		44 77 22 81 55 99 78 88
+		
+		j+=2, j = 6
+		
+		78 < 88? yes, don't swap
+		0  1  2  3  4  5  6  7
+		44 77 22 81 55 99 78 88
+		
+		j+= 2, while(j < maxsize)
+		
+	Odds
+		k = 1
+		
+		77 < 22? no, swap
+		0  1  2  3  4  5  6  7
+		44 77 22 81 55 99 78 88
+		
+		k+=2, k = 3
+		
+		81 < 55? no, swap
+		0  1  2  3  4  5  6  7
+		44 77 22 55 81 99 78 88
+		
+		k+=2, k = 5
+		

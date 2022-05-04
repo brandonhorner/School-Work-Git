@@ -1,0 +1,486 @@
+Part I. Intro to Java
+
+1) Compiling + Running Java Programs
+	2 step process: 1) write + compile code
+					2) run/execute compiled code
+	
+	Source Code - stored in .java files (readable)
+		|
+		V                                                
+	Compiler - 'Javac' compiles source code + generates .class file (byte code/not readable)
+		| Javac HelloWorld.java (compile file HelloWorld.java)
+		V Java HelloWorld (executes this code)
+	Interpreter -  Java Virtual Machine (JVM) running/executing the compiled program
+	
+	public class HelloWorld{  //class declaration
+		
+		public static void main(string [] args){ //main method - type "psvm"
+					                   parameter - array of strings
+		
+		system.out.println("Hello world!");
+		//package.object.method
+		
+		} //end of main
+		
+	} //end of HelloWorld
+	
+Important Notes:
+	Every Java program must define a class
+	Every variable in java must have a type + must be declared
+	Every Java Program must have a function
+	
+Primitive types:
+	Type		What It stores				Range of Values
+	byte		8-bit integer				-128 to 127
+	short		16-bit integer				-32,768 to 32,767
+   *int			32-bit integer				-2,147,483,648 to 2,147,483,647
+	long		64-bit integer				-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807  (2^63)
+	float		32-bit floating point		6 significant digits
+   *double		64-bit floating point		15 significant digits
+   *char		16-bit unicode character	30,000 distinct codes
+   *boolean		boolean						true/false
+   
+Each variable must be declared with a name and type (case sensitive)
+Examples:
+	<type> <variable_name> {initial_value}; 	//{optional}
+	int age;
+	int Age; (two different variables
+	---------
+	int age;
+	Age = 19; (error)
+	---------
+	int num3;
+	double minwage = 7.80;
+	int x = 0
+	---------
+Wrong Examples:                 
+	short a = 921234; //(too long of an integer)
+	float weight = 52.3412342; //too many digits behind decimal (need double)
+	char team = "NAU"; //char team = "N"; (only one character)
+	num4 = 5; //no type associated
+	
+Basic Operators
+	Assignment operators: 	left hand side updated to = right hand side //"="
+							x += y -> x = x + y
+							x -=
+							x *=
+							x /=
+	Binary arithmetic: +, -, *, /, %
+		int x = 6;
+		int y = 10;
+		int fraction = x/y; //fraction = 0 (remainder 4)
+		double fraction = (double)x/y; //cast fraction as a double = 0.6
+		
+	Unary operators:
+		-a 		prefix: ++x; increment, then use value
+		-- 		postfix: x++; use value, then increment
+		++
+		int a = 0; int b = 0; int c;
+		c = ++a //=1, a = 1
+		c = a++ //=0, a = 1
+		
+	Logical operators:
+		&& - AND
+		|| - OR
+		!  - NOT
+		
+	Relational:
+		< less than
+		> greater than
+		<= less than or equal
+		>= greater than or equal
+		== are they equal
+		!= not equal
+		
+	Primitive Java (continued)
+		Loops
+			for
+			while		//executes while expression is true
+			do while 	//guarentees loop executes at least once
+			
+			//Example for loop
+			for(<initializations>; <test>; <update>){
+			}
+			for(int x=0; x<10; x++){
+				System.out.println(x);
+			}
+			
+			//Example while loop
+			int i = 0;
+			while(i<10){
+				i++; 	//doesn't need curly braces (immediate line runs anyway)
+			}
+			System.out.println("i: "+ i);
+			
+			//Example do while loop
+			do{
+				i++;
+				System.out.println("i: "+ i);
+			}
+			while(i<10);
+			
+		Conditional Statements/Blocks
+			if(<expression>){
+				<statements>;
+			}else if(<expression2>){
+				<statements2>
+			}else{
+				<statements3>
+			}
+			
+			//Example nested if
+			int x = 0, y = 0
+			if(x==0){
+				if(y==0){
+					System.out.println("x and y are zero");
+				}else{
+					System.out.println("x is zero and y is not");
+				}
+			}
+			else{
+				System.out.println("x is not zero");
+			}
+			
+		switch - used to select among a set of values or options
+			switch(<variable_to_test>){
+				case <value1>:
+					code_here;
+					break;
+				case <value2>:
+					code_here;
+					break;
+				default:		//else (no values matched, what should it do?)
+				}
+			        int age = 12;
+			//Example switch:
+			switch(age){
+				case 18:
+					System.out.println("You're 18");
+					break;
+				case 19:
+					System.out.println("You're 19");
+					break;
+				default:
+					System.out.println("You're not old enough!");
+			}
+			
+		Reference Types (Java is pass-by-value, not pass-by-reference)
+			-all types that are not primitive
+				e.g Strings, arrays, file streams
+				
+			- a reference variable
+				- stores a memory adress where an object resides
+				*may be null if variable is not initialized
+				
+			- an object is an instance of a non primitive type
+				*all objects must be constructed using the keyword new
+				//Example
+				int a = 15;
+				Integer b = new Integer(15); //constructing an object
+					//points to a memory address containing the integer 15
+					
+		Operators on Reference Variables
+			1) Examine or manipulate the reference value (i.e. memory address)
+				- change to point to another object "= assignment"
+				- compare to see if two references point to the same object 
+					(i.e are memory addresses equal?) "==" or "!="
+			2)	Manipulating the object being referenced.
+				- access an internal field or call method
+				- private field (only methods in that class can access that variable)
+					"." operator
+					//example
+						Person a = new Person("Jack");
+						Overloading Constructor/Method
+							public Person(String name){  //Constructors have no return type
+							--->	//Same name as the Class
+							}
+							public Person(String name, int age){
+							--->
+							}
+							Java will pick the constructor with matching parameters.
+							
+		Strings
+			- Java Provides built-in String Class
+			- Strings are Reference Types
+				"exception" + +=
+				"this" + "that" => thisthat
+				String a = "hello";
+				String b = "goodbye";
+				b = a;
+				a==b; //True ("hello" == "hello")
+				String c = "hello";
+				a==c; //False (two different objects that may contain the same value)
+				
+			//Quick Examples
+			int len = c.length;	//len = 5
+			char ch = c.charAt(2);  //ch = l (h=0, e=1, l=2, l=3, o=4)
+			String sub = c.substring(2,4);  //sub = "llo"
+			
+			int a = 5;	//a: 5
+			Integer B = new Integer(15); //B: 1024 --> 15
+			double p = 13.5	//p: 13.5
+			Double q = new Double(27.0); //q: 2048 --> 27.0
+			double s = q;	//s: 2048 --> 27.0 (change s, it changes q)
+			String str = "Bye";
+			
+		Arrays
+			stores a collection of identically typed entities
+			array index operator []
+				*always start at zero: 0,1,2,3,4,5...
+			to determine the length of an array we can use:
+				.length
+			int []array1;
+			array1 = new int[100]; # gives an array of integers
+			or
+			int []array2 = new int[100]
+			or
+			int []array3; = {3, 4, 10, 6};
+			Person []arrayOfPeople = new Person[5];
+			for primitive types, default initialization is 0
+			for reference types, default initialization is null
+			
+			for (int i = 0; i < array.length; i++){
+				arrayOfPeople[i] = new Person(i);
+			}
+			multidimensional arrays
+			int [][]multiArray = new int[2][3];
+									 rows^  ^columns
+			Command Line Arguments
+				javac x.java //compile
+				java x		//run?
+			public class Echo{
+				public static void main(String []args){
+					if(args.length=0)
+						System.out.println("no args");
+					for (int i=0; i < args.length; i++){
+						System.out.println(args[i]);
+					}//end for
+				}//end main
+			}//end Echo
+			
+			int x = Integer.parseInt(args[0]); //takes first input
+			Person [] people_array = new Person[x] // if first input is 100, size will be 100
+			
+			Packages
+				used to organize a collection of classes
+				examples of pre-defined packages
+				java.io - stream classes for I/o
+				java.lang - Integer, Double, Strings, Math, System //auto imported
+				java.util - Date, Random, Scanner
+			Class C in package p is specific using p.C
+			import directive
+			import packageName.Classname
+			import packageName.* //all classes
+			
+			Scanner in = new Scanner(System.in);
+			String name;
+			int age;
+			
+			System.out.println("Enter the person's name.");
+			name = in.next();
+			System.out.println("The name you entered is " + name + ".");
+			if(in.hasNextInt()){  //type checking
+				age = in.nextInt();
+				System.out.println("Age entered is: " + age);
+			} else {
+				System.out.println("Age entered was not a number.");
+			}
+			people_array[2] = new Person(name)
+			
+			Streams
+				are used to perform I/o
+				3 streams are predefined //built in to the java package
+					System.in - Standard input //from keyboard
+					System.out - Standard output //appears on monitor
+					System.err - Standard error 
+				Scanner Type - Simplest way to read formatted input
+				readLines of input - nextLine
+				readStrings of input - next
+				readPrimitives of input - nextInt
+			Ex:	
+				import java.util.Scanner;
+				public class DivideByTwo{
+					public static void main(String []args){  //psvm (String []args){
+						Scanner in = new Scanner(System.in);
+						int x;
+						System.out.print("Please enter an integer to be divided: ")
+						if(in.hasNextInt()){
+							x = in.nextInt();
+							System.out.println("Half of " + x + " is: " + (x/2));
+						}// System.out.println("Half of " + x + " is: " + ((double)x/2));
+					}
+				}
+			
+			Exception Handling
+				exceptions are objejcts that store information
+				transmitted outside the normal return sequence
+			try block - encloses code that may generate an exception
+			catch block - processes your exception in some way
+			finally block - always execute prior to completion
+				try{
+					[           ] //code that may cause problem
+				}
+				catch(Exception E){
+					[			] //code that handles the unknown (or any) exception
+				}catch(){
+					[		] //code that handles all other exception 
+				}finally{
+				}
+			Ex:
+			public class DivideByTwo{
+					public static void main(String []args){  //psvm (String []args){
+						Scanner in = new Scanner(System.in);
+						int x;
+						System.out.print("Please enter an integer to be divided: ")
+						try{
+							String oneLine = in.nextLine();
+							x = Integer.parseInt(oneLine);
+							System.out.println("Half of " + x + " is: " + (x/2));
+						// System.out.println("Half of " + x + " is: " + ((double)x/2));
+						}catch(NumberFormatException e){
+							System.out.println(e); //display exception
+							//System.out.println("Please enter an INTEGER: ") //ask them again
+						}
+					}	
+				}
+				
+			Runtime Exceptions/Unchecked Exceptions
+				NumberFormatException
+				ArithmeticException
+				IndexOutofBounds
+				
+			Checked Exceptions - 
+			*must be handled in try/catch block or throws clause,
+			if not you get a compile time error
+				java.io.EOFexception //end of file exception
+				java.io.FileNotFound
+				java.io.IoException
+			
+			psvm(String []args){
+				try{
+					processFile(args[0]);
+				}catch(IoException e){
+				}
+				public void
+				processFile() throws IoException
+			
+			Inheritance
+			public class Person{
+				public Person(String n, int ag, String ad, String p){
+					name = n;
+					age = ag;
+					address = ad;
+					phone = p;
+				}//end of constructor
+				public String getName(){
+					return name;
+				}
+				public int getAge(){
+					return age;
+				}
+				public String getAddress(){
+					return address
+				}
+				public String getPhone(){
+					return phone;
+				}
+				public String toString(){
+					return getName() + " " + getAge() + " " + getAddress() + " " + getPhone();
+				}
+				
+			private String name;
+			private int age;
+			private String address;
+			private String phone;
+			}//end of Person
+		
+			public class Student extends Person{
+				public Student(String n, int ag, String ad, String p, double g){
+					super(n, ag, ad, p);
+					gpa = g;
+				}
+				public double getGPA(){
+					return gpa;
+				}
+				public String toString(){
+				    return super.toString() + " " + getGPA();
+				  //return getName() + " " + getAge() + " " + getAddress() + " " + getPhone() + " " + getGPA();
+				}
+			private double gpa
+			}
+			
+			Important Notes:
+				Cannot remove methods or fields
+				Can add fields
+				Can add methods
+				Can overide methods  //private cannot override public
+				Derived(Student) class cannot directly access private variables in
+					Base(Person) class. 
+					If access is needed use protected instead of private
+				To avoid overriding a method in a derived class the base class should define
+					the method as final
+					
+			Student s = new Student("Joe", 21, "2 Main St.", "212-555-1111", 4.0);
+			Person p = s;
+			System.out.println("Age is: " + p.getAge());
+			
+			//in base class:
+			public static boolean isOlder(Person p1, Person p2){
+				return p1.getAge() > p2.getAge();
+			}
+			Person P = new Person("",,"","",);
+			Student s = new Student("",,"","",,);
+			Employee e = new Employee("",,"","",,"");
+			isOlder(p, s);
+			isOlder(p, e);
+			isOlder(s, e);
+			
+			Is-A relationships are transitive //a student IS-A person
+							/Person\
+						/Student  Employee\
+			    /Undergrad  Grad  Programmer CEO\
+			//can't extend multiple classes, but the inheritance heirarchy works.
+			
+			Interfaces
+				- abstract class - contains no implementation details
+					contains abstract methods
+						public static final fields //won't be overwritten when interface is implemented
+				a class implements an interface if it provides a definition for all abstract
+					methods defined in the interface
+				
+				
+				public interface Eatable{
+					void eat();
+					void grow();
+				}
+				//public class Apple extends Fruit implements Eatable{} 
+				public class Apple implements Eatable, Growable, Destroyable{
+					public void eat(){
+						System.out.print("I ate the apple");
+					}
+					public void grow(){
+						System.out.print("I grow apples");
+					}
+					
+				Eatable e = new apple();
+				Eatable c = new orange();
+				}
+				
+				Generics
+					-support code reuse
+					-type independent implementation/logic
+					// do the same thing no matter what the type is
+					-used if implementation is the same despite the type of object
+					Declaring a Generic Class - type parameter <E>
+					
+					public class ArrayList <E>{
+						public void add (E element){
+						}
+					}
+					//array that holds 
+					ArrayList <BankAccount> account1 = new ArrayList<BankAccount>();
+					ArrayList <int> array2 = new ArrayList<int>(); // can't do this
+					//primitives are not objects
+					ArrayList <Integer> array2 = new ArrayList <Integer>();
+					
+				

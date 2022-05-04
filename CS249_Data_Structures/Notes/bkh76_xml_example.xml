@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nintendo [
+<!ELEMENT games (cur:game*)>
+<!ATTLIST games xmlns:cur CDATA "http://www.cefns.nau.edu/~bkh76/"
+				xmlns:past CDATA "http://www.cefns.nau.edu/~bkh76/">
+<!ELEMENT cur:game (title, info, platform, predecessors)>
+<!ELEMENT title EMPTY>
+<!ATTLIST title title CDATA #REQUIRED>
+<!ELEMENT info EMPTY>
+<!ATTLIST info year CDATA #REQUIRED
+				cost CDATA #IMPLIED
+				rating CDATA #IMPLIED
+				type CDATA #IMPLIED>
+<!ELEMENT platform (CDATA)>
+<!ELEMENT past:game (title, info)>
+<!ELEMENT title EMPTY>
+<!ATTLIST title title CDATA #REQUIRED>
+<!ELEMENT info EMPTY>
+<!ATTLIST info year CDATA #REQUIRED>
+]>
+
+<games xmlns:cur="http://www.cefns.nau.edu/~bkh76/" 
+xmlns:past="http://www.cefns.nau.edu/~bkh76/">
+	<cur:game>
+		<title title="Super Smash Bros. for Wii U">
+		<info year="2014" cost="$60" rating="Everyone" type="Fighting">
+		<platform> Nintendo Wii U </platform>
+		<past:game>
+			<title title="Super Smash Bros. Brawl">
+			<info year="2008"></info>
+		</past:game>
+		<past:game>
+			<title title="Super Smash Bros. Melee">
+			<info year ="2001">
+		</past:game>
+		<past:game>
+			<title title="Super Smash Bros.">
+			<info year="1999">
+		</past:game>
+	</cur:game>
+	<cur:game>
+		<title title="Super Mario Galaxy 2">
+		<info year="2013" cost="" rating="Everyone" type="Adventure">
+		<platform> Nintendo Wii U </platform>
+		<past:game>
+			<title title="Super Mario Galaxy">
+			<info year="2009">
+		</past:game>
+	</cur:game>
+	<cur:game>
+		<title title="Animal Crossing: New Leaf">
+		<info year="2012" cost="" rating="Everyone" type="Adventure">
+		<platform> Nintendo Wii </platform>
+		<past:game>
+			<title title="Animal Crossing: City Folk">
+			<info year="2008">
+		</past:game>
+		<past:game>
+			<title title="Animal Crossing: Wild World">
+			<info year="2005">
+		</past:game>
+		<past:game>
+			<title title="Animal Crossing">
+			<info year="2001">
+		</past:game>
+	</cur:game>
+	<cur:game>
+		<title title ="Luigi's Mansion: Dark Moon">
+		<info year="2013" cost="$50" rating="Everyone" type="Thriller/Adventure">
+		<platform> Nintendo Wii </platform>
+		<past:game>
+			<title title="Luigi's Mansion">
+			<info year="2001">
+		</past:game>
+	</cur:game>	
+	<cur:game>
+		<title title ="Mario and Luigi: Dream Team">
+		<info year="" cost="40" rating="Everyone" type="RPG">
+		<platform> Nintendo 3DS </platform>
+		<past:game>
+			<title title="Mario and Luigi: Bowser's Inside Story">
+			<info year="2009">
+		</past:game>
+		<past:game>
+			<title title="Mario and Luigi: Partners in Time">
+			<info year="2005">
+		</past:game>
+		<past:game>
+			<title title="Mario and Luigi: Superstar Saga">
+			<info year="2003">
+		</past:game>
+	
+	</cur:game>
+	<cur:game>
+		<title title ="The Legend of Zelda: A Link Between Worlds">
+		<info year="2013" cost="$50" rating="Everyone" type="Adventure/Puzzle">
+		<platform> Nintendo 3DS </platform>
+		<past:game>
+			<title title="The Legend of Zelda: Skyward Sword">
+			<info year="2011">
+		</past:game>
+		<past:game>
+			<title title="The Legend of Zelda: Twilight Princess">
+			<info year="2006">
+		</past:game>
+		<past:game>
+			<title title="The Legend of Zelda: The Wind Waker">
+			<info year="2002">
+		</past:game>
+		<past:game>
+			<title title="The Legend of Zelda: Majora's Mask">
+			<info year="2000">
+		</past:game>
+		<past:game>
+			<title title="The Legend of Zelda: Ocarina of Time">
+			<info year="1998">
+		</past:game>
+	</cur:game>
+</games>

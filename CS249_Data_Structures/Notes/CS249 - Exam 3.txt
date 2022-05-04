@@ -1,0 +1,202 @@
+O(1)
+b
+d
+c
+b
+d
+a
+d
+b (or c if you argue)
+count 1's above main diagnal or count all 1's / 2
+c
+A->B
+B->A->C->D
+C->B
+D->B
+13) undirected simple graph - 3 edges for 3 vertices
+14) d                                                      
+15) a
+16) a
+17) b
+18) each path from root to leaf is in ascending order (weakly ordered)
+19) a
+20) b
+
+1)directed graph, plot it out
+
+2) 
+|A|-> B -> C    (A is only connected to B and C)
+|B|-> A -> D    (B is only connected to A and D, A is NOT connected to D)
+|C|-> B -> D -> E  (Left side represents vertices)
+|D|-> D -> C
+|E|-> A -> B
+
+3) queue breadth first search (assume start vertex is A)
+A
+AB
+ABC
+ BC (pop A)
+ BCD (end of B's)
+  CD (pop B)a
+  CDE
+   DE
+    E  
+4) depth first queue
+(up and down)
+     T->E
+   T->C C
+ T->D D D
+  B B B B
+A A A A A
+
+order visited ABDCE
+
+
+5) A->B
+   |
+   V ^----V
+   C -> D E
+   5 vertices, only need vertices (5)-1 = 4 edges (could be in any way)
+   
+6)
+ABDCEA (list or say that you cycle, with the starting point at A through E)
+BDCEAB (vertices + 1 = # of a
+DCEABD
+CEABDC
+EABDCE
+
+7)
+    A      B    C      D      E
+A int(A) 10(A) 2(A)  Int(A) Int(A)
+C X      5(C)  X     6(C)   3(C)
+E X      X(>)  X     X      X
+B X      X     X     X(7)   X
+D
+
+and show resulting graph
+       (C)
+    ^ / | \4
+  2/ 3V 1V  V
+(A)  (B)(E) (D) 
+
+
+8)
+public void insert(int key, String value){  //string so we don't accidentally use it as an index
+	int hashval = hashFunc(key); //assign key to hash value
+	int index = hashval % size; //compress that to the size of the array (assume the size is available)
+                                //check if index is available
+	int start = index;
+	boolean full = 0;
+	while(hashTable[index] != null){  //finds spots
+		index++;
+		if(index == size)
+			index = 0; //wrap around
+		//if it's completely full
+		if(start == index){
+			full = 1;
+			break;
+		}
+	}
+	if(!full)
+		hashTable[index] = value;
+}
+
+public DataItem delete(int key){
+	int hashVal = hashFunc(key); //hash the key
+	while(hashArray[hashVal].getKey() == key){
+		if(hashArray[hashVal] != null){ //until empty cell
+			DataItem temp = hashArray[hashVal];
+			hashArray[hashVal] = nonItem;
+			return temp;
+		}
+	++hashVal; 		//go to next cell
+	hashVal %= arraySize //wrap around if necessary
+	}
+	return null;
+}
+
+DOUBLE HASHING
+public void insert(int key, DataItem item){
+	int hashVal = hashFunc1(key);  //hash key
+	int stepSize = hashFunc2(key); //get step size
+	while(hashArray[hashVal] != null && 
+				hashArray[hashVal.getKey() != -1){
+		hashVal += stepSize;  //add the step
+		hashVal %= arraySize;  //for wraparound
+	}
+	hashArray[hashVal] = item;
+}
+public DataItem delete(int key){
+	int hashVal = hashFunc1(key);
+	int stepSize = hashFunc2(key);
+	while(hashArray[hashVal] != null){
+		if(hashArray[hashVal].getKey() == key){
+			DataItem temp = hashArray[hashVal];
+			hashArray[hashVal] = nonItem;
+			return temp;
+		}
+		hashVal += stepSize
+		hashVal %= arraySize
+	}
+	return null;
+}
+
+9)
+		15
+	 /      \   (always insert into left most child, (going left, right)
+	5        2 
+  /   \    /  \
+ 8    12  11   8  (keep swapping until it's less than it's parent (switch 8 and 5)
+ /\   /\
+7  5 2  1
+
+		15
+	 /      \   
+	8        2 
+  /   \    
+ 5    12  
+
+		15
+	 /      \   (always insert into left most child, (going left, right)
+	12      11 
+  /   \    / 
+ 5    8   2      (keep swapping until it's less than it's parent)
+
+
+		15
+	 /      \   (always insert into left most child, (going left, right)
+	12      11
+  /   \    /  \
+ 5    8   2    7  (keep swapping until it's less than it's parent (switch 8 and 5)
+ /\   /\
+1  5 2  15
+
+
+	    28
+	 /      \   Final
+	25      11 
+  /   \    /  \
+ 12   23   2   7  
+ /\   /\
+1  5 8  15
+
+
+to remove max, take 28 out, move lowest level furthest right (call trickle down)
+
+move 15 up, 23, up, 25 up
+
+	    25
+	 /      \   after deletion of max
+	23      11 
+  /   \    /  \
+ 12   15   2   7  
+ /\   /
+1  5 8 
+
+	    25
+	 /      \   Final after inserting 24 back in
+	24      11 
+  /   \    /  \
+ 12   23   2   7  
+ /\   /\
+1  5 8 15

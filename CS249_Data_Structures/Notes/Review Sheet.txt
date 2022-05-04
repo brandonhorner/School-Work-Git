@@ -1,0 +1,153 @@
+Mergesort
+Effic:       0(NlogN)
+Copies:		 8log2(8)=24, NlogN
+Compares: N-1 worst case, N/2 best case
+Description: Divide array in half recursively until
+	only one item exists in the array (sorted), merge
+	pieces back together in order.
+	
+private void recMergeSort(long[] workSpace, int lBound, int uBound){
+	if(lBound == uBound) // range = 1,
+		return;			 // base case
+	else{
+		int mid = (lBound+uBound)/2; //find midpoint
+		recMergeSort(workSpace, lBound, mid);
+		recMergeSort(workSpace, mid+1, uBound);
+		mrege(workSpace, lBound, mid+1, upperBound);
+	}
+}
+
+private void merge(long[] workSpace, int lowPtr, 
+					int highPtr, int uBound){
+	int j = 0;
+	int lBound = lowPtr;
+	int mid = highPtr - 1;
+	int n = upperBound-lowerBound+1 //# of items 
+	
+    while(lowPtr<=mid && highPtr<=uBound){
+		if(theArray[lowPtr] < theArray[highPtr])
+			workSpace[j++] = theArray[lowPtr++];
+		else
+			workSpace[j++] = theArray[highPtr++];
+	}
+    
+	while(lowPtr<=mid)
+		workspace[j++] = theArray[lowPtr++];
+        
+	while(highPtr<=uBound)
+		workspace[j++] = theArray[highPtr++];
+        
+	for(j=0; j<n; j++)
+		theArray[lowerBound+j] = workSpace[j];
+}
+
+
+shellsort dramatically improves insertion sort's performance
+Effic: O(N^(3/2)) down to O(N^(7/6)), [O(nlogn)< X < O(n^2)] 
+Description: insertion sort on widley spaced elements, spaced by an increment
+	after the increment finishes, it decreases based on knuth's algorithm
+	h = 3*h+1 (increasing) 1,4,13,40,121,364
+	h = (h-1)/3 (decreasing)
+
+	
+partition algorithm 
+	O(N), N+1 or N+2 comparisons, < (N/2) swaps
+	Works by starting with two pointers, one at each end of the array.
+	When leftPtr encounters a data item > pivot value, it stops, ready to swap
+	When rightPtr encounters a data item < pivot value, it stops, ready to swap
+	then swap(leftPtr, rightPtr);
+	
+pg 328 partitionIt + swap
+
+QuickSort
+Efficiency:
+	worst case - n-1 times, so called worst case = O(n)*O(n-1) = O(n^2)
+	best case - log n, so called best case = O(n)*O(logn), so O(nlog n)
+Partition array into smaller keys and larger keys of a chosen pivot
+recurse on left group
+recurse on right group
+
+picking a pivot besides array[right]
+	median of 3: pick first, middle, and last num in array
+		compare all 3 and pick middle value
+
+Radix Sort (Least Significant Digit sorting)
+O(Nlogn)			
+for each item, copy to appropriate linked list n and n, O(2n) = O(n)
+				+ then back to the array
+			repeat for each digit 3 (# of digits)*2n (# of copies) = O(n)
+																	O(K*n) K = # of digits
+																	or O(NlogN) (K=log2N)
+																	
+	disassembles "Keys" (number we want to sort) into digits & arranges data 
+		items according to value of each digit
+	*no comparisons
+	1) Take all items and divide them into 10 groups based on 1's digit (0 to 9)
+	2) Reassemble groups: all keys ending in 0
+			all keys ending in 1, 2, 3..., 9
+	3) Repeat this for every digit (10's digit, 100s digit, etc)
+	*4) must be done w/o changing the order of the previous step
+	
+	
+	public boolean insert(int key)
+	{
+	if(currentSize==MaxSize) //if array is full
+		return false;
+	Node newNode = new Node(key)
+	heapArray[currentSize] = newNode; //put new node at end
+	trickleUp(currentSize++);
+	return true;
+	} //end insert()
+	
+	public void trickleUp(int index)
+	{
+	int parent = (index-1) / 2
+	Node bottom = heapArray[index];
+	
+	while(index > 0 && heapArray[parent].getKey() < bottom.getKey()){
+		heapArray[index] = heapArray[parent]; //move node down
+		index = parent;						  //move index up
+		parent = (parent-1) / 2;  			//parent <- its parent
+	}//end while
+	heapArray[index] = bottom;
+	}//end trickleUp()
+	
+	public Node remove(){  //delete item with max key
+		Node root = heapArray[0]; 	//save the root
+		heapArray[0] = heapArray[--currentSize]; //root <- last
+		trickleDown();
+		return root;
+	} //end remove()
+	
+	public void trickleDown(int index){
+		int largerChild;
+		Node top = heapArray[index];  //save root
+		while(index < currentSize /2){
+			int leftChild = 2*index+1
+			int rightChild= leftChild+1 
+			
+			if(rightChild < currentSize && 
+						heap[leftChild].getKey() < heap[rightChild].getKey())
+				largerChild = rightChild; 	//find larger child
+			else
+				largerChild = leftChild;
+			if(top.getKey() >= heapArray[largerChild.getKey())  //top >= largerChild
+				break;
+			heapArray[index] = heapArray[largerChild]; //shift child up
+			index = largerChild;	//go down
+		}//end while
+		heapArray[index] = top;
+	}
+		
+	public boolean change(int index, int newValue){
+		if(index<0 || index>=currentSize)
+			return false;
+		int oldValue = heapArray[index].getKey(); //remember old
+		heapArray[index].setKey(newValue); 	//change to new
+		
+		if(oldValue < newValue)
+			trickleUp(index);
+		else
+			trickleDown(index);
+		return true;
+	} //end change()

@@ -1,0 +1,130 @@
+Graphs
+*FINAL EXAM INFO
+Depth First Search (DFS)
+	go as far away as possible before visiting
+	use a stack* to remember where you've been
+  RULES:
+	(0) define start pt, put on stack
+	(1) if possible, visit adjacent vertex, mark it True, put it on the stack
+	(2) if you can't follow rule 1, if possible, pop vertex (don't change boolean)
+	(3) if you can't follow 1 or 2, you are done
+	
+	each pop should print (unless you're doing something else with the search)
+	
+	   B - F - H
+	A / C
+	  \ D - G - I
+	   E
+	
+	Printout: A B F H C D G I E
+	
+Breadth First Search (BFS)
+	stay as close to start as possible
+	use a queue
+  RULES:
+	(0) define start pt
+	(1) visit next unvisited adjacent vertex, mark it, insert into queue
+	(2) if you can't follow rule 1, remove vertex from queue, + MARK IT "Current"
+	(3) if you can't follow 1 or 2, you are done
+	
+	   B - F - H
+	A / C
+	  \ D - G - I
+	   E
+	   
+	printout: A B C D E F G H I
+	temp queue:
+	B, C, D, E
+	^F       ^R
+	B, C, D, E
+	   ^F    ^R
+  	B, C, D, E, F  (finish)
+       ^F       ^R
+	   
+	
+Transitive Closure
+	is just a check to see if there is edges between vertices
+	only hard if it's directed graphs
+	
+Traveling Sales Problem (TSP)
+	Set of cities (nodes) and roads (edges) between cities
+	
+	A -- 91--  B
+	| \      / |
+	|  62   44 |
+   55     C    31
+	|  52  45  |
+    | /      \ |
+	D -- 83 -- E
+	
+	Find hamilton cycle w/ the smallest weight
+	permutations!
+	
+Dijkstra's
+		B -- 60--> C
+	 />	|<\      />|
+	50	|  50   20 |
+   A   90     X    40
+	80	|  /    \  |
+	 \>	v /      \ |
+		D -- 70 -> E
+	
+	shortest path problem
+
+		(0) given start point A
+		(1) record min distance from start to all other vertices
+		(2) select min distance from table and add vertex to result graph
+		(3) calculate distance to each vertex from "current",
+				replace in table if less than existing case
+				(remember to add distances, A to B to C)
+		 *loop 2 + 3
+												  B
+												/50
+								ongoing graph A         C
+												\80  20/
+												  \   / |
+												    D   |40
+		   B   C   D    E								E
+		   -------------
+		 A|50 inf  80  inf
+		 B|X  110  140 inf
+		 D|X  100  X   150  
+		 C|X  X    X   140
+		 E|X  X    X   X
+		
+		pick min, B is next row
+		X not interest in B
+		110 (60 + 50) A + B
+		140 (90+50) A + B + D
+		grab row a, column d (shorter than 110)  
+		pick min, D is next row
+		X not interested in A
+		100 (80+20)
+		X not interested in D
+		150 (80+70) A + D + E
+		pick min, C is next row
+		140 (40+80+20) A + D + C +E
+		
+		
+	class Vertex{
+		public char label;
+		public boolean wasVisited;
+		public vertex(char kb){
+			label = kb;
+			wasVisited= False;
+		}
+	}
+	graph class:
+		addVertex
+			vertexList[numVertices] = new vertex('A')
+			addEdge
+				adjmat[0][1] = 1 (a goes to b)
+				adjmat[1][0] = 1 (b goes to a)2
+				
+				or adjacency list
+				
+				A - > B - > D
+				B - > C
+				C 
+				D - > A
+				

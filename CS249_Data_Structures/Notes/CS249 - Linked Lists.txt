@@ -1,0 +1,245 @@
+Linked list
+use counters
+Delete()
+		
+	public class Node{
+		public int iData;
+		public double dData;
+		public Node next;
+	
+		public Node(int i, double d){
+			iData = i;
+			dData = d;
+			next = null;
+		}
+		public void displayNode(){
+			System.out.println("{"+iData+","+dData+"}");
+	}
+	
+	public class LinkList{
+		private Node first;
+		
+		public LinkList(){
+			first=null;
+		}
+		
+		public void insertFirst(int id, int dd){
+			Node newNode = new Node(id, dd);
+			newNode.next = first;
+			first = newNode;
+		}
+		
+		public Node deleteFirst(){
+			Node temp = first;
+			first = first.next;
+			temp.next = null;  //make sure no access to temp (optional)
+			return temp;
+		}
+		public void displayList(){
+			Node current = first;
+			while(current != null){
+				current.displayNode();
+				current = current.next;
+			}
+		}
+		
+	public void insert(long id){
+		Node newNode = new Node(id);
+		if(count==0){
+			current = newNode;  // only one node
+			current.next = newNode;  // set both to the node
+		}elseif(count==1){
+			newNode.next = current;  //update newNode.next
+			current.next = newNode;  //update current.next
+			current = newNode;  //update where current is
+		}else{
+			newNode.next = current;
+			for(int i=1; i<count; i++){
+				current = current.next;
+			}
+			current.next = newNode;
+			current = newNode;
+		}
+		count++;
+	} //O(n), we have to walk back to 
+	
+	public Node delete(){
+		if(count==0){
+		
+		}elseif(count==1){
+			temp = current.contents;
+			current = null;
+			return temp;
+		}else{
+			Node temp = current;
+			while (temp.next != current){
+				temp = temp.next;
+			}
+		}
+		temp.next = current.next;
+		current = current.next;
+		count--;
+	}	
+		
+	public Node find(long Key){
+		Node temp = current;
+		int getHome = count;  //for delete(long Key) -> add prev pointer which trails temp (current.prev)?
+		while(getHome>0){
+			if(temp.iData == Key)
+				return temp;
+			else{
+				temp = temp.next;
+				getHome--
+			}
+		}//end while
+		return null;
+	}//end find()
+	
+Singly Linked List (no last pointer, no prev pointer)
+[]->[]->[x] <-current
+    ^ previous, set previous to current, then move current forward when inserting
+	
+1)  [6] <- node/sorted list
+	 V
+	[2]
+	 V
+	[4]
+	 V
+	[5] <-current
+//assume first node is sorted, move to second node and see if it belongs before the first, etc
+2)  [6] <- sorted list
+	 -
+	[2] <- node
+	 V
+	[4]
+	 V
+	[5] <-current
+// node=node.next; //advance node
+// sortedList.next = null;  (cut off sortedList because it doesn't need to be touched...)
+3)  [6] <- sorted list
+	 -
+	[2] <-current
+	 V
+	[4] <-node
+	 V
+	[5] 
+
+	
+3)  [2] <-current
+	 V ----current.next = sortedList
+	[6] 
+	 -
+	 V
+	[4] <-node
+	 V
+	[5]
+	
+public Node insertSortLL(Node node){
+	if(node == null) return null; //catch empty list
+	Node sortedList = node; //what we want to return
+	node = node.next 
+	Node current; //temporary variable for switching the node
+	while(node!=null){
+		current = node; //node to be placed
+		node = node.next;  //advance node until node=null
+		if(current.iData < sortedList.iData){
+			current.next = sortedList;
+			sortedList = current;
+		}//end if
+		else{ //else traverse the list
+			Node search = sortedList; //temporary variable, moved along 
+			
+			//don't advance if the next iData is greater than the current iData
+			while(search.next!=null && currrent.iData > search.next.iData){
+				search = search.next;
+			}//end while
+			current.next = search.next; //insert the node where it belongs
+			search.next = current; //update pointers in sorted list
+		}//end else
+	}//end while	
+}//end Node
+	
+Comparing array + Linked List implementation
+	insert/delete
+		O(1)			O(1)
+	find/delete/insert at specific place
+		O(n)			O(n)
+						*no need to copy/shift data
+	random access of specific location
+		array[i-1] = O(1)   traverse i-1 times, O(n)  
+							*big difference, must traverse every piece of the list to find item
+							
+	LinkedList
+	has private first
+	ListIterator
+	has private current
+	ListIterator2
+	has private current - can point to something totally different in your list
+	
+	class ListIterator{
+		private Node current;
+		private Node prev;
+		private LinkedList ourList;
+		public ListIterator(LinkedList list){
+			ourlist = list;
+			reset();
+		}
+		public void reset(){
+			current = ourlist.getFirst()
+			prev = null;
+		}
+		publc void nextNode(){ //points to the next thing in the list
+			prev = current;
+			current = current.next;
+		}
+		public boolean atEnd(){
+			return (current.next == null);
+		}
+		public Node getCurrent(){
+			return current;
+		}
+		public void insertEnd(int id){ //insert newNode after current
+			Node newNode = new Node(d);
+			if(ourList.isEmpty()){
+				ourList.setFirst(newNode);
+				current = newNode;
+			}else{
+				newNode.next = current.next;
+				current.next = newNode;
+				nextNode();
+			}
+		}
+		public void insertBefore(int id){//insert before current
+		
+		}
+		public long deleteCurrent(){//deletes the node current points to and returns it
+		}
+		
+	}
+	class itrApp{
+		psvm(){
+			LinkedList theList = new LinkedList();
+			ListIterator iter1 = theList.getIterator();
+			
+			iter1.insertAfter(20); [20] = c
+			iter1.insertBefore(30); [30c] -> [20]
+			iter1.insertAfter(13); [30] -> [13c] -> [20]
+			iter1.nextNode(); //advances current to next [30] -> [13] -> [20c]
+		
+		}
+		
+		
+	public long deleteCurrent(){
+		long value = current.iData;
+		if(previous == null){ //is current at beginning?
+			ourList.setFirst(current.next);
+			reset()
+		}else{
+			previous.next = current.next
+			if(current.next == null){ //if we're at the end
+				reset()
+			}else{
+				current = current.next;
+			}
+		return value;
+		

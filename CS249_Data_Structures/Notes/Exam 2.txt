@@ -1,0 +1,135 @@
+a
+c
+d
+d
+c
+40
+nlogn  n^2
+pivot
+true
+b
+d
+b
+5
+a
+a
+c
+c
+a
+d
+d
+b
+d
+d
+
+insert last
+public void insertLast(Node n){
+	if(first==null)
+		first = n;
+	else{
+		Node current = first;
+		while(current.getNext() != null){ //.next is private, use a method called getNext()
+			current = current.getNext();
+		} //end while, current = null;
+		current = n;
+	}
+}
+
+public void insertFirst(Node n){
+	n.setNext(first);
+	first = n;
+}
+
+2) perform radix sort on
+132, 341, 32, 526, 126, 77, 30, 622, 30, 356
+30, 30, 341, 132, 32, 622, 526, 126, 356, 77
+||||||  |||  ||||||||||||  |||||||||||||  ||
+0's 	1's      2's             6's      7's
+
+622, 526, 126, 30, 30, 132, 32, 341, 356, 77
+|||||||||||||| |||||||||||||||| |||| ||||  ||
+    20's		  30's          40's 50's  70's
+
+30, 30, 32, 77, 126, 132, 341, 356, 526, 622
+||||||||||||||| ||||||||  ||||||||| |||  |||
+   000's          100's     300's   500's 600's
+O(k*n) K=# of digits
+
+3) mergesort
+0    1    2   3    4   		|  5   6   7    8   9
+132, 341, 32, 526, 126,		|  77, 30, 622, 30, 356
+							|              
+132, 341, 32, 526, 126 		|  77, 30, 622, 30, 356
+132, 341, 32| 526, 126		|  77, 30, 622 | 30, 356
+132, 341 | 32 | 526 | 126   |  77, 30, |622 | 30, 356
+132| 341   32               |  77 | 30 | 622 | 30 | 356
+132, 341 	  | 126, 526 |	| 30, 77         |30, 356
+32, 132, 341				  30, 77, 622
+	32, 126, 132, 341, 526        30, 30, 77, 356 622
+		30, 30, 32, 77, 126, 132, 341, 356, 526, 622
+	
+O(NlogN)
+
+4) public void recQuickSort(int left, int right){
+	//base case
+	if(right-left) <= 0){
+		return;
+	}
+	else{
+		choose pivot array[right];
+		int partitionzzz = partition(left, right, pivot); //returns index of where the partition is going to belong
+		recQuickSort(left, partitionzzz - 1);
+		recQuickSort(partitionzzz + 1, right);
+	}
+}
+
+public int partition(int left, int right, long pivot){
+	int leftPtr = left - 1;
+	int rightptr = right;
+	while(true){
+		loop moving leftPtr from left to right until finding a value greater than pivot
+	    //(make sure right > 0)
+		loop moving rightPtr from right to left, until finding a value less than pivot
+		if leftPtr && rightPtr cross, break
+		else swap(left Ptr value, rightPtr value)
+	}
+	swap(leftPtr.value, right)
+	return location of pivot(leftPtr)
+}
+show how quicksort works on:
+  5, 4, 3, 2, 1
+^leftPtr    ^rightPtr
+
+5, 4, 3, 2, 1
+LP       RP
+5, 4, 3, 2, 1
+LP    RP
+5, 4, 3, 2, 1
+LP RP
+5,  4, 3, 2, 1
+LRP
+
+Binary  Tree
+30, 10, 20, 45, 25, 60, 50, 9
+			30
+		   /  \
+		 10   45
+		/ \     \
+       9  20     60
+		   \     /
+		   25   50
+B remove 50, and 10
+case 1: i have no children case
+		(50 is easy to delete, no children
+case 2: i have 1 child ( just move the numbers up the chain
+case 3: i have 2 children case
+		(can't just move 9 up, if it had more children)
+		(replace the 10 with the successor (20))
+
+	in-order: 9 10 20 25 30 45 50 60
+	pre-order: 30 10 9 20 25 45 60 50 (root, left child, right child, etc)
+	post-order: 9, 25, 20, 10, 50, 60, 45, 30 (go down left childs, run out? go right child, then back up)
+	level order: 30, 10, 45, 9, 20, 60, 25, 50
+
+	
+	

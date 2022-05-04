@@ -1,0 +1,143 @@
+Recursion
+	when a method invokes/calls itself
+	
+2 parts of recursion recursive method
+	1) Base Case
+	2) Solve small portion of problem + make a recursive call to solve a smaller problem
+	
+//count down from a g??? #
+public void countDown(int myInt){
+	if (myInt == 0)
+		S.O.P myInt;
+	else{
+		s.o.p(myInt)
+		countDown(myInt-1);
+	}
+}
+
+public void displayArray(int []array, int first, int last){ //first = 0, 1, 2, 3, 4
+	s.o.p(array[first]);
+	if(first<last)
+		displayArray(array, first+1, last)
+}
+public void displayArrayReverse(int []array, int first, int last){ //first = 0, 1, 2, 3, 4
+	s.o.p(array[last]);
+	if(first<last)
+		displayArray(array, first, last-1)
+}
+public void displayArray(int []array, int first, int last){ //first = 0, 1, 2, 3, 4
+	if(first<=last)
+		displayArray(array, first+1, last)
+		System.o.p(array[last] + " ");
+}
+
+#2 Project 3
+Knapsack
+	we have a set of items each has a weight
+	we have a bag that holds a total specified weight
+Goal: select items that add up to specified weight
+	total weight = 20 lbs
+	5 items = {11, 8, 7, 6, 5}
+	which weights go in? 8+7+5 = 20
+steps:
+	1) if at any point the sum weight == total, we are done
+	2) start by selecting first item (11)
+		update: sum of item weight needs to add up to total-first(9), leaves with 1. 1 is smaller than any number, try a different second number
+		no combos work with 11,
+	3) remove 1st item, start with second item instead
+		pick 8, we have 12 left, take 7, we have 5 left, take 6, too big, take away 6, take 5, 0 left, done.
+		
+		
+goal weight = 33
+items = {20, 29, 6, 14, 3, 7, 11, 8}
+item 20, new weight = 13 
+	item 29 < 13? NO, don't use
+	item 6 < 13? YES, use 6, new weight = 7
+	    item 14 < 7? NO, don't use
+		item 3 < 7? YES, use 3, new weight = 4
+			item 7,11,8 < 4? NO, don't use any, change previous number
+		item 7 < 7? YES, new weight = 0, stop!
+		
+item 
+binary_search recursion
+
+PROJECT 3 NOTES ------------------------------------------------------------------------------------------------------------------------------------
+Part A) 2D Matrix
+	Data Structure: Linked List (arrangement of nodes)
+	input: size of the matrix (width=10 (max)/height=10 (max))
+	Functionality:
+		1) insert specific value @ specific loaction //ask user to press 1 to do this, 2 to do this etc
+		2) fill entire matrix w/ given value
+		3) ask for row sum + column sums
+		4) Display the matrix
+		   0     1      2     3
+start ->0 [00]->[01]->[02]->[03]-|
+		  |   |   |    |
+		  v   V   V    V
+		1 [10]->[11]->[12]->[13]-|
+		  |   |   |    |
+		  v   V   V    V
+		2 [20]->[21]->[22]->[23]-|
+	
+	Structure Solution
+		MatrixApp
+			- takes in size (height/width) //ask user for width, ask user for height, assign to a variable and use as input
+			- create matrix with input //create matrix object, Matrix matrix = new Matrix(width, height);
+				- initialize it w/ col#row#
+			- prompt user for functionality 1-4
+			if (1 is pressed) prompt user for location (x, y)
+				prompt for the new value (value)
+				call insertValue(x, y, value)
+			if (2 is pressed) promt user for (value) to fill matrix with
+				fillMatrix(value);
+			if (3 is pressed) get row and column sums
+				sumMatrix(); //displays sums of columns and sums of rows?
+				00 10 10
+				01 11 12
+				02 12 14
+				03 33
+			if (4 is pressed)
+				display in a simple table
+				need displayMatrix();
+
+		Matrix Class
+			needs start pointer that always points to first node
+			additional node pointers to walk through the matrix (current?)
+			methods
+				constructor(height, width)
+					takes in user input
+					create node with 00
+					start points to 00
+					at width - 1, create another node
+					start.right = newNode
+					leftEnd points to the current leftmost of the matrix
+					leftEnd.down = newNode
+					above pointers to point down
+					onLeft pointer traverses right
+				insert(x, y, value)
+				fill(value)
+				sum()
+					for amount of columns, run through each row, display sum until last row
+					for amount of rows, run through each colmun that many times and display the sum until last colmun
+				display()
+		
+		Node Class
+			2 pointers (right, down)
+			data fields(value)
+			maybe display to display contents?
+			
+	PART B: Knapsack
+		Base Case(s): hit max capacity
+					: no solution (tried every combinations) when index = size of array
+		knapsack(capacity, current)
+				change capacity, and current check
+				
+	PART C: Make Branches
+			Create 2 dimensional array
+			initialize character array full of dashes
+			first row, find middle, change to x
+			call make branches on the first half, and second half
+			call make branches on the first quarter, second quarter, third quarter, fourth quarter	
+			
+			
+					

@@ -1,0 +1,117 @@
+Big Ordered & Efficiency
+	generalize complexity
+	How do the # of steps increase as the size of the data set increases
+	O(1) - constant
+	# of steps is dependent on n
+	count:
+	- for loop/do/while
+	- basic operations
+examples:
+	for(int = 0, i<length, i++); //O(n)
+	for(int = 0, i<length, i = i+2; //O(n/2)
+
+Arrays
+	11, 8, 7, 4, 12, 1 unordered
+	1, 4, 7, 8, 11, 12 ordered
+	
+Operations		Type of Array	Worst Case Complexity
+	add/insert		Unordered		O(1)
+					Ordered			O(n)
+	delete/remove	Unordered		O(n)
+					Ordered			O(log n) to find, O(n) to close gap
+	search/find		Unordered       O(n)
+					Ordered			O(log n)
+					
+	Invariant = condition that remains unchanged/true as the algorithm proceeds
+
+Bubble Sort
+	1) Start at beginning
+	2) Compare two #'s
+	3) If the one on left is larger, swap
+	4) Move right one position
+	*repeat 2-4 until array is sorted
+	
+	Each pass puts the largest value in the rightmost position that hasn't been used
+    
+	public static void Bubble(int[] arr){
+    /* BubbleSort invariant: During each pass; the largest number is put at the
+     * rightmost position that hasn't been used.
+	 * Data items to the right of the next space to be filled are sorted
+     */
+        int temp;
+        boolean flag = true; //variable to stop when no more swaps are happening
+        while(flag){
+            flag = false;
+            for(int i=1; i<arr.length; i++){  //traverse arr
+                if(arr[i-1]>arr[i]){  //compare i to previous index
+                    temp = arr[i];  //store smaller number in temp
+                    arr[i] = arr[i-1]; //update smaller number's index to bigger number
+                    arr[i-1] = temp; //put smaller number in previous index
+                    flag = true; //swap occurred
+                }
+            }
+        }
+    }
+
+Selection Sort
+	1) Look at all elements + select the smallest (initially first element of array)
+	2) Swap the smallest # with the beginning of the unsorted portion of the array
+	3) swap the element from that space
+	4) repeat on remaining unsorted portion of the array
+	
+	Invariant: left side of next element to be sorted is always 
+		sorted (in the final resting position)
+	
+    public static void selectionSort(int[] arr) {
+        int i, j, first, temp;
+        for(i=0; i<arr.length-1; i++){ //traverse array swapping smallest value with front index of the array
+            first = i;      //update front of array as we go (beginning part will be in sorted position)
+            for(j=i+1; j<arr.length; j++){  //traverse the array beyond i each time to find the min in the unsorted array
+                if(arr[j] < arr[first]) //if the value found is smaller than first item looked at
+                    first = j;   //update first to the index of smallest item
+            }//end for
+            temp = arr[first];   //swap first (smallest item) with current starting point (arr[i])
+            arr[first] = arr[i];
+            arr[i] = temp;
+        }//end outer for
+    }//end selectionSort
+
+Insertion Sort
+	1) Take first element of unsorted portion of array to insert in-order 
+		into the sorted portion
+		-to start we assume array[0] is sorted
+	*repeat until array is sorted
+	
+	Invariant: every item to the left of next item to be sorted is partially sorted
+	
+    public static void InsertionSort(int[] num){
+        int j;
+        for (int i = 1; i < num.length; i++)    // Start with 1 (not 0)
+        {
+            int key = num[i];
+            for(j=i-1;(j >= 0) && (num[j]>key); j--){   // Smaller values are moving up
+                num[j+1] = num[j];
+            }
+            num[j+1] = key;    // Put the key in its proper location
+        }
+    }
+
+Binary Search
+*must be sorted
+1) find midpoint in array
+2) compare element & midpoint w/ key serach value
+if == return
+if a[mid] > key search left
+if a[mid] < key search right side
+
+    public static int rank(int key, int[] a) {
+        int lo = 0;
+        int hi = a.length - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if      (key < a[mid]) hi = mid - 1;
+            else if (key > a[mid]) lo = mid + 1;
+            else return mid;
+        }
+        return -1;
+    }

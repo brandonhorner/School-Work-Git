@@ -1,0 +1,39 @@
+2d matrix
+start
+ |
+ V  right				row x columns
+[00]->[01]->[02]-|        2 x 3
+ |down |     |
+ v     v     v
+[10]->[11]->[12]-|
+
+Functionality:
+	build structure			 /*constructor
+		- initialize values  */
+					
+	
+	1) display	=>		00 01 02 2x3
+						10 11 12
+				
+				
+	
+	2) insert int at specific location	
+		insertSingleVal(int n, int x, int y)
+		(go down x # of times, go right y # of times)
+		(make sure you can't go passed 10x10 so, make sure values are within 0 to 9)
+	
+	3) fill entire matrix with given int value	
+		fillAll(int val) temp variable to keep track of row
+		temprow = start.down
+		temp variable to move down row (tempcol)
+		
+	compute row/column sums
+		
+	matrixApp
+		take in size (r x c)
+		create matrix
+		prompt user to choose (1-4) (do method for each number)
+		
+	matrixLL
+		
+					

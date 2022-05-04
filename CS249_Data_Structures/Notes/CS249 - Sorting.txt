@@ -1,0 +1,359 @@
+Sorting!
+Mergesort  O(n log n)
+	divides list in half
+	mergesort each half
+	merge halves back together  [12][3]|[6][4]
+							  [12]|[3]   [6]|[4]
+				Base case:	[12]   [3]   [6]   [4] //one item in each array
+							 come together in order
+							   [3][12]   [4][6]  //compare 3  and 4, 3 is smaller
+									[3]			//compare leftmost thing in each list, 12 and 4, 4 is smaller
+									[3][4]
+									[3][4][6][12]
+								
+				ArrayA 23,47,81,95		ArrayB 7,14,39,55,62,74
+					    ^aPtr				   ^bPtr
+				create third array of combined size
+				ArrayC __,__,__,__,_,__,__,__,__
+				
+				compare leftmost sorted item in each array
+				use aPtr, bPtr
+				put the smallest in the next spot of the new array
+				advance ptr in array that had smallest outcome bPtr++
+				repeat until reached the end of either array.
+				step 5 copy any remaining items from unfinished array
+				
+				ArrayA 23,47,81,95		ArrayB 7,14,39,55,62,74
+					    ^aPtr				      ^bPtr
+				ArrayC 7,__,__,__,_,__,__,__,__
+				
+	public static void merge(int []ArrayA, int sizeA, int []ArrayB, int sizeB, int[]arrayC){ //don't need sizes or last array
+		sizeA = []ArrayA.length()
+		sizeB = []ArrayB.length()
+		int []ArrayC = sizeA+sizeB*/
+		int aIndex, bIndex, cIndex = 0;
+		while(aIndex < sizeA && bIndex < sizeB){
+			if(arrayA[aIndex] < arrayB[bIndex])
+				arrayC[cIndex++] = arrayA[aIndex++]
+			else(arrayA[aIndex] > arrayB[bIndex])
+				arrayC[cIndex++] = arrayB[bIndex])
+		while(aIndex < sizeA)
+			arrayC[cIndex++] = arrayA[aIndex++]
+		while(bIndex < sizeB)
+			arrayC[cIndex++] = arrayB[bIndex++]
+		//copy everything back to your original array
+		for(j=0; j<#ofelements; j++)
+			originalArray[] = workspace[]; //arrayC
+	}
+	
+	
+	
+	24, 47, 63, 85 count comparisons + copies
+	12, 34, 55, 79
+	
+	12, 24, 34, 47 count comparisons
+	55, 63, 79, 85
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	"starter" method //original array is global variable
+	public void mergSort(){
+		int []workspace = new int[#ofElements];
+		recMergeSort(workspace, 0, #elements-1); //lower bound upperbound
+		
+	private void recMergeSort(int []workspace, int lowerBound, int upperBound{
+		if(lowerBound == upperBound)
+			return;
+		else{
+			int mid = (lowerBound+upperBound)/2;
+			recMergeSort(workspace, lowerBound, mid);
+			recMergeSort(workspace, mid+1, upperBound);
+			Merge(workspace, lowerBound, mid+1, upperBound);
+		}
+why O(n log(n))
+	look at copies + comparisons
+	64,| 21,|33, 70,| 12, 85, 44, 3
+	   |    |       |
+	   |    |       |
+	 split3 split2 split1
+	copy 21 copy 4
+	copy 64	copy 33
+			copy 70
+			
+			get 24 copies
+			8*3=24
+			8=2^3
+			log2(8)=3
+			
+	do worst case n-1 comparisons.
+	do best case n/2 comparisons
+	
+-----------------------------------------------------------------------	
+Shellsort O(n log n)^2
+	-similar to insertion sort
+		-recall invariant (everything on left of current is partially sorted)
+	-run insertion sort on widley spaced elements - sort increment = 4 for 10 elements
+	7 10 1 9 2 5 8 6 4 3
+	0  1 2 3 4 5 6 7 8 9
+	^        ^       ^
+	2 10 1 9 4 5 8 6 7 3 
+	   ^       ^       ^
+	   5       7       10
+	     ^       ^      //^ out of bounds, don't do anything
+	find sorting size, Knuth interval sequence
+	h=3h+1
+	h=1
+	h=4
+	h=13
+	h=40
+	h=121 choose largest element you can for the array size you have
+	
+Quick Sort
+	operates by partitioning an array into 2 sub arrays
+		one subarray contains all items less than the pivot
+		other subarray contains all items greater than the pivot
+	calling itself on each subarray
+	
+	42, 89, 63, 12, 94, 78, 3, 25, 36 <- pivot (just because)
+	     <     36    >
+	12, 3, 25     42, 89, 63, 94, 78
+			^					   ^
+	       25              78
+	12, 3           42, 63    89, 94	
+        ^                ^         ^
+        3               63        94
+		   12        42        89
+		3, 12, 25, 36, 42, 63, 78, 89, 94
+		
+public void recQuickSort(int left, int right){
+	if(right - left <= 0){
+		return;
+	}
+	else{
+		long pivot = theArray[right]; //assume it's the right most item
+		int partition = partitionIt(left, right, pivot);
+		recQuickSort(left, partition -1);
+		recQuickSort(partition +1, right);
+	}
+}
+
+Partition
+	divide into two groups
+		data < pivot
+		data > pivot
+	implementation
+		left pointer
+		right pointer (right-1 because right is our pivot)
+		scan left + scan right (walk your pointers)
+		when you find something out of place, swap
+		return the index of the pivot
+	
+	so, if leftptr > pivot, and rightPtr < pivot, swap
+		advance ptr
+		keep checking until leftptr>rightptr
+		swap leftptr, pivot, to move the pivot into the middle of the array
+		
+	so walk your leftptr till leftptr.value > than pivot
+	walk your rightptr till rightptr.value < than pivot
+	swap the two values
+	keep advancing/swapping
+	
+	how to choose a pivot point:
+		goal: each subarray contains n/2 items
+		(cant assure this^)
+		median of three position
+			choose first, last, middle
+				    42, 36, 94
+					choose 42, because atleast theres 36 and 94 on both sides
+	
+	public long medianof3(int left, int right){
+		int center = (left+right)/2;
+		if(array[left] > array[center]) //orders left + center
+			swap(left, center)
+		if(array[left] > array[right])  //orders left + right
+			swap(left, right)
+		if(array[center] > array[right]) //orders center + right
+			swap(center, right)
+		swap(center, right-1)
+		return array[right-1]  //return pivot value
+	}
+	
+	public int partitionIt(int left, int right, long pivot){
+		int leftPtr = left;
+		int rightPtr = right-1;
+		while(true){	
+			while (array[++leftPtr] < pivot)
+				;// keep moving
+			while(array[--rightPtr] > pivot)
+				;
+			if(leftPtr>=rightPtr)
+				break;
+			else
+				swap(array[leftPtr],array[rightPtr]
+		}
+		swap(leftPtr, right-1); //put pivot into final resting spot
+		return leftPtr;	//returns pivot location
+		
+	public void recQuickSort(int left, right){
+		int size = right-left + 1;
+		if(size<=3)
+			call insertionsort
+		else
+			long median = medianof3(left, right);
+			int partition = partitionIt(left, right, median);
+			recQuickSort(left, partition-1);
+			recQuickSort(partition+1, right);
+		}
+		
+	efficiency of quicksort
+		efficiency of partition
+			#comparisons - O(n)
+			
+			#swaps - n/2
+		O(n)
+	Efficiency of QS depends on # of times w/ call partition
+		worst case - n-1 times, so called worst case = O(n)*O(n-1) = O(n^2)
+		best case - log n, so called best case = O(n)*O(logn), so O(nlog n)
+		
+	Radix Sort (Least Significant Digit sorting)
+	(Project 4 part A)
+		disassembles "Keys" (number we want to sort) into digits & arranges data 
+			items according to value of each digit
+		*no comparisons
+		Psuedo - code
+		1) Take all items and divide them into 10 groups based on 1's digit (0 to 9)
+		2) Reassemble groups: all keys ending in 0
+				all keys ending in 1, 2, 3..., 9
+		3) Repeat this for every digit (10's digit, 100s digit, etc
+		*4) must be done w/o changing the order of the previous step
+		
+		EX:
+		421, 240, 35, 532, 305, 430, 124
+		240, 430, 421, 532, 124, 35, 395
+		305, 421, 124, 430, 532, 35, 240
+		035, 124, 240, 305, 421, 430, 532
+		
+		Efficiency
+			for each item, copy to appropriate linked list n and n, O(2n) = O(n)
+				+ then back to the array
+			repeat for each digit 3 (# of digits)*2n (# of copies) = O(n)
+																	O(K*n) K = # of digits
+																	or O(NlogN) (K=log2N)
+		10 items 0 to 9
+		100 items 0 to 99
+		1000 items 0 to 999
+		
+		To represent
+		0 to 1: 0 to 2^k-1   |1 bits: 0, 1
+		0 to 3: 0 to 2^2-1   |2 bits: 00, 01, 10, 11
+		0 to 7: 0 to 2^3-1   |3 bits: 00, 001, 010, 011
+		
+		logbx=y (draw a heart)
+		b^y = x
+		2^k = N
+		log2N=K
+	
+	Trees	
+		consists of nodes
+			connected by edges (directed downward) (root) O->         (grandparent)(level 0)
+														O-> O->       (parents)    (level 1)
+													      O-> O-> O-> (children)   (level 2)
+			path - "walk" from the node to node along edges
+			* each tree has one & only one path from the root to each node
+			Parent - node immediately above another node (grandparents, great grandparents etc)
+			Child - node immediately below the parent
+			Leaf - has no children (bottom of the tree)
+			Subtrees - any node can be the root of a subtree
+			levels - # of generations from root
+			
+	Binary Trees
+		have at most 2 children, leftchild + rightchild (can have only one)
+	
+	Binary Search Trees
+		key value stored in left child must be < than the key value stored in the parent
+		key value stored in right child must be > than parent
+	
+	*insert
+	*delete
+	*find
+	*display
+	
+	Ex:
+	63, 27, 13, 51, 33, 58, 57, 60, 80, 70, 92, 82
+				(63) <- rootPtr
+		v                   v
+	   27			        80
+	v       v            v     v
+	13     51           70     92
+	     v     v             v
+		33     58            82
+	         v    v
+			 57   60
+			 
+	Efficiency of finding something => worst case: O(n)
+	Find(57)->63->27->51->58->57
+	start at root, 63=57? no
+				   63>57? yes, go left pointer (57 is smaller)
+				      27=57? no
+					  27>57? no, go right pointer
+					     51=57? no
+						 51>57? no, go right pointer
+						    58=57? no
+							58>57? yes, go left pointer
+							   57=57? yes, SUCCESS!
+		
+	public node find(int key){
+		//assumes tree is not empty
+		Node current = root;
+		while(current.iData!=key){
+			if(key < current.iData) //key is less than current
+				current=current.leftchild
+			else //key is greater than current
+				current=current.rightchild
+			if(current=null)
+				return null;
+		}
+		return current;
+	}
+	
+	public void insert(int id){
+		//assumes tree is not empty
+		Node newNode = new Node(id);
+		if(root == null)
+			root = newNode;
+		else{//tree not empty
+			Node current = root;
+			Node parent;
+			while(true){
+				parent = current;	//trailing parent
+				if(id < current.iData){ //key is less than current
+					current=current.leftchild;
+					if (current==null){
+						parent.leftchild = newNode;
+						return;
+					}//end if
+				}//end if
+				else{ //key is greater than current
+					current=current.rightchild
+					if (current==null){
+						parent.rightchild = newNode;
+						return;
+					}//end if
+				}//end else
+		    }//end while
+	    }//end else
+	}//end insert

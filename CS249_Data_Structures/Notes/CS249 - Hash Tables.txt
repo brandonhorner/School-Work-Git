@@ -1,0 +1,102 @@
+Hash Tables Chapter 12
+	data structure allows for fast insertion + fast searching O(1)
+
+Hashing - transform a key into an array index
+	e.g. key is the employee id #
+		hash this key // h(key) hash is some kind of function
+			id # = index
+		ideal function/ perfect hash function
+			all key values transform to a unique index //id # is 312, so go to array[312]
+		911 example
+			h(555-1214) = 1214			array[1214] = 105 main st.
+				 ^key	   ^index
+				
+			insert/Add(key, value)
+			//to find index, convert last 4 characters into an index
+			index = h(key);  //hash function changes on parameters
+			array[index] = value;
+			
+			search/getValue(key)
+				//find index of key value
+				index=h(key);
+				return array[index];  //returns address
+				
+			for this example, array could be 0000-9999 (10,000 values)
+				if there is only 700 places, 9,300 values are wasted
+				
+			Suppose hashTable has n places
+			6t i = hash(key)
+			6t index = i % n //produces values between 0 + n - 1
+			
+				can lead to collisions - some hash keys may map to the same index
+			*2 STEPS (on test)
+				1) first step is to convert your search key to an integer (hash code)
+				2) compress hash code into range of indices from 0 to n - 1
+			
+			Reduce chance of collisions
+				n should be a prime # ( you are less likely to run into thet same resulting prime number? )
+			Handle collisions
+				1) Open Addressing - find another place in the array/hashtable to put the second key (what causes the collision)
+					-linear probing
+					-quadratic probing
+					-double hashing
+				2) seperate chaining
+					
+					h(555-1214) = 52
+					h(555-8132) = 52 *(say we made a function that maps them all to one index
+					h(555-4294) = 52
+					h(555-2072) = 53
+					
+					h(555-1214) = 52 => array[52] = 105 main st.
+					h(555-8132) = 52 => array[53] = 111 main st.
+					h(555-4294) = 52 => array[54] = 551 main st.
+					h(555-2072) = 53 => array[55] = 502 E lake blvd
+					
+					linear Probing - check x, full? yes, check x+1, full? yes, check x+2, full? no, use this spot
+					so to avoid store a key and value in a node
+					if something doesn't match, check the next one
+					h(555-2072) is at 53 supposedly
+					check array[53], value isn't there???
+					so we check array[54], not there, array[55] oh there it is
+					
+				This idea (linear probing) is not a very good idea, it causes clusters quickly
+				
+				Quadratic probing - x, x+1^2, x+2^2, x+3^2, x+4^2
+								  - x, x+1, x+4, x+9, x+16 if out of bounds, create circular function 
+				This idea (Quadratic probing) is not a very good idea, it causes clusters almost as quickly
+								  
+							h(555-1214) = 52 => array[52] = 105 main st.
+							h(555-8132) = 52 => array[53] = 111 main st.
+							h(555-4294) = 52 => array[54] = 551 main st.
+							h(555-1111) = 52 => array[55] = 551 main st.
+							h(555-2072) = 53 => array[56] = 502 E lake blvd
+							
+							say we remove the  2nd and 3rd element from hash, (condemned biulding)
+							instead, we add a boolean function, (key, value, boolean) boolean = 0, 1, null
+							0 = value was removed
+							1 = value is there
+							null = value was never there
+							
+				Double hashing - uses second hash function to determine the probe sequence
+					e.g tablesize = 7, h1(key) = key % 7, h1(16) = 2
+										h2(key = 5 - key % 5,  h2(16) = 4
+										ideally if h1 is full, use h2 to determine the probe sequence
+									
+					unfortunately, double hashing still leads to clustering
+					
+				array could hold linked list of items
+				if something maps to 52, create a node, if something else maps to 52 COLLISION, create another node
+				Seperate Chaining
+					node needs a value, key, next ptr
+					if duplicate keys are allowed (not in this example (phone #'s))
+						add to the beginning
+					if no duplicates, we must look at each node
+						add to the end
+						store sorted list
+					load factor = (# of items)/(arraysize)
+					open addressing - once load factor = .5, need to improve load factor
+										so increase arraysize
+					seperate chaining - only affected by firs thing in each place
+									-load factor = 1 usually
+									
+				so instead, the array could hold a binary search tree instead
